@@ -1,0 +1,58 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: #222;
+  background: white;
+}
+
+main {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+header,
+footer {
+  margin-bottom: 24px;
+}
+
+.game {
+  padding: 16px;
+  border: 1px solid #aaa;
+}
+
+#message {
+  min-height: 3em;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.card {
+  aspect-ratio: 1;
+  border: 1px solid #888;
+  background: #eee;
+  font-size: clamp(24px, 7vw, 40px);
+  cursor: pointer;
+}
+
+.card:hover {
+  background: #ddd;
+}
+
+.card:focus-visible {
+  outline: 3px solid #222;
+  outline-offset: 2px;
+}
+
+footer {
+  margin-top: 24px;
+  font-size: 14px;
+}

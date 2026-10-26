@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Haunted Pairs · Halloween Memory</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">A little trick. A little treat.</p>
+        <h1>Haunted <span>Pairs</span></h1>
+        <p>Every creature has a double. Can you find them all?</p>
+      </header>
+
+      <section class="game" aria-labelledby="board-title">
+        <div class="game-heading">
+          <h2 id="board-title">The haunted deck</h2>
+          <p class="stage-label">Stage 1 · Meet the creatures</p>
+        </div>
+        <p id="message" role="status">Click a creature to discover its name.</p>
+        <div id="board" class="board" aria-label="Halloween creature cards"></div>
+      </section>
+
+      <footer>
+        <p>Built with HTML, CSS, JavaScript, and a few friendly ghosts.</p>
+      </footer>
+    </main>
+  </body>
+</html>
