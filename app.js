@@ -14,12 +14,36 @@ const message = document.querySelector("#message");
 const movesDisplay = document.querySelector("#moves");
 const pairsDisplay = document.querySelector("#pairs");
 const restartButton = document.querySelector("#restart");
+const themeButton = document.querySelector("#theme-toggle");
+const themeMoon = document.querySelector("#theme-moon");
+const themeLabel = document.querySelector("#theme-label");
 let deck = [];
 let selectedCards = [];
 let matchedCards = [];
 let isBoardLocked = false;
 let moves = 0;
 let mismatchTimer = null;
+
+function toggleTheme() {
+  const isMidnight = document.body.classList.toggle("midnight");
+  themeButton.setAttribute("aria-pressed", String(isMidnight));
+  themeMoon.src = isMidnight ? "assets/midnight-moon.png" : "assets/dusk-moon.png";
+  themeLabel.textContent = isMidnight ? "Midnight edition" : "Dusk edition";
+}
+
+function handleThemeKey(event) {
+  if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) {
+    return;
+  }
+
+  if (event.target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(event.target.tagName)) {
+    return;
+  }
+
+  if (event.key.toLowerCase() === "n") {
+    toggleTheme();
+  }
+}
 
 function startGame() {
   clearTimeout(mismatchTimer);
@@ -137,4 +161,6 @@ function checkPair() {
 
 board.addEventListener("click", handleBoardClick);
 restartButton.addEventListener("click", startGame);
+themeButton.addEventListener("click", toggleTheme);
+document.addEventListener("keydown", handleThemeKey);
 startGame();

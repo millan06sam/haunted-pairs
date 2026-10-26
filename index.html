@@ -11,21 +11,21 @@
     <main>
       <header>
         <div class="hero-copy">
-          <p class="eyebrow">A little trick. A little treat.</p>
           <h1>Haunted <span>Pairs</span></h1>
           <p>Every creature has a double. Can you find them all?</p>
         </div>
-        <img class="dusk-moon" src="assets/dusk-moon.png" alt="" width="815" height="534" />
+        <img id="theme-moon" class="theme-moon" src="assets/dusk-moon.png" alt="" width="120" height="90" />
       </header>
 
       <section class="game" aria-labelledby="board-title">
         <div class="game-heading">
           <h2 id="board-title">The haunted deck</h2>
-          <p class="stage-label">Dusk edition</p>
+          <p id="theme-label" class="stage-label">Dusk edition</p>
         </div>
         <div class="game-controls">
           <p>Moves: <span id="moves">0</span></p>
           <p>Pairs: <span id="pairs">0 / 8</span></p>
+          <button id="theme-toggle" type="button" aria-pressed="false" title="Toggle midnight mode (N)">Midnight mode</button>
           <button id="restart" type="button">Restart game</button>
         </div>
         <p id="message" role="status">Click a card to reveal its creature.</p>
