@@ -4,8 +4,13 @@ A Halloween memory card game for M1 · El Despertar del DOM, currently in develo
 
 ## Current functionality
 
-The page displays eight Halloween creature buttons. Clicking a button shows the
-creature's name. The styling is basic and no card matching tyet.
+- A deck of 16 cards containing eight creature pairs.
+- Cards are shuffled each time the page loads.
+- Cards start face down.
+- Clicking a card reveals its creature and updates the message.
+- Basic styling and keyboard-accessible card buttons.
+
+No matching rules, move counting, etc. That comes after
 
 ## How to run
 

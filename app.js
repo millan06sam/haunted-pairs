@@ -1,4 +1,3 @@
-// Stage 1: create eight buttons and connect a single board listener.
 const creatures = [
   { name: "Pumpkin", symbol: "🎃" },
   { name: "Ghost", symbol: "👻" },
@@ -12,29 +11,43 @@ const creatures = [
 
 const board = document.querySelector("#board");
 const message = document.querySelector("#message");
+const deck = shuffleDeck([...creatures, ...creatures]);
+
+function shuffleDeck(cards) {
+  for (let index = cards.length - 1; index > 0; index--) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    const savedCard = cards[index];
+    cards[index] = cards[randomIndex];
+    cards[randomIndex] = savedCard;
+  }
+
+  return cards;
+}
 
 function createCreatureCards() {
-  for (const creature of creatures) {
+  for (let index = 0; index < deck.length; index++) {
     const card = document.createElement("button");
     card.type = "button";
     card.classList.add("card");
-    card.textContent = creature.symbol;
-    card.dataset.name = creature.name;
-    card.setAttribute("aria-label", creature.name);
+    card.textContent = "?";
+    card.dataset.index = index;
+    card.setAttribute("aria-label", `Card ${index + 1}, face down`);
     board.append(card);
   }
 }
 
 function handleBoardClick(event) {
-  // closest also finds the button if we later put an element inside it.
   const card = event.target.closest(".card");
 
-  // Clicking a gap in the grid must not count as clicking a creature.
   if (card === null) {
     return;
   }
 
-  message.textContent = `You found the ${card.dataset.name.toLowerCase()}!`;
+  const index = Number(card.dataset.index);
+  const creature = deck[index];
+  card.textContent = creature.symbol;
+  card.setAttribute("aria-label", `Card ${index + 1}, ${creature.name}`);
+  message.textContent = `You revealed the ${creature.name.toLowerCase()}!`;
 }
 
 board.addEventListener("click", handleBoardClick);
