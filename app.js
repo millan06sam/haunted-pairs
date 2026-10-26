@@ -56,7 +56,7 @@ function createCreatureCards() {
     const card = document.createElement("button");
     card.type = "button";
     card.classList.add("card");
-    card.textContent = "?";
+    card.textContent = "";
     card.dataset.index = index;
     card.setAttribute("aria-label", `Card ${index + 1}, face down`);
     board.append(card);
@@ -92,7 +92,8 @@ function handleBoardClick(event) {
 function setCardFace(index, isFaceUp) {
   const card = board.children[index];
   const creature = deck[index];
-  card.textContent = isFaceUp ? creature.symbol : "?";
+  card.textContent = isFaceUp ? creature.symbol : "";
+  card.classList.toggle("revealed", isFaceUp);
   const label = isFaceUp ? creature.name : "face down";
   card.setAttribute("aria-label", `Card ${index + 1}, ${label}`);
 }
