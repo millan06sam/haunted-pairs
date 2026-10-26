@@ -1,6 +1,6 @@
 # Haunted Pairs
 
-A Halloween memory card game for M1 · El Despertar del DOM, currently in development.
+A Halloween memory card game for M1
 
 ## Current functionality
 
