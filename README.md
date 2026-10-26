@@ -9,8 +9,10 @@ A Halloween memory card game for M1 · El Despertar del DOM, currently in develo
 - Cards start face down.
 - Clicking a card reveals its creature and updates the message.
 - Basic styling and keyboard-accessible card buttons.
-
-No matching rules, move counting, etc. That comes after
+- Players can reveal two cards at a time.
+- Matching pairs stay visible and cannot be selected again.
+- Mismatched cards turn face down after one second.
+- Extra selections are blocked while mismatched cards are visible.
 
 ## How to run
 

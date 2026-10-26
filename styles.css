@@ -29,6 +29,27 @@ footer {
   min-height: 3em;
 }
 
+.game-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+#restart {
+  padding: 8px 12px;
+  border: 1px solid #888;
+  background: #eee;
+  color: #222;
+  font: inherit;
+  cursor: pointer;
+}
+
+#restart:focus-visible {
+  outline: 3px solid #222;
+  outline-offset: 2px;
+}
+
 .board {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

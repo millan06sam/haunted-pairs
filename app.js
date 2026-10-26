@@ -11,10 +11,34 @@ const creatures = [
 
 const board = document.querySelector("#board");
 const message = document.querySelector("#message");
-const deck = shuffleDeck([...creatures, ...creatures]);
+const movesDisplay = document.querySelector("#moves");
+const pairsDisplay = document.querySelector("#pairs");
+const restartButton = document.querySelector("#restart");
+let deck = [];
 let selectedCards = [];
-const matchedCards = [];
+let matchedCards = [];
 let isBoardLocked = false;
+let moves = 0;
+let mismatchTimer = null;
+
+function startGame() {
+  clearTimeout(mismatchTimer);
+  mismatchTimer = null;
+  deck = shuffleDeck([...creatures, ...creatures]);
+  selectedCards = [];
+  matchedCards = [];
+  isBoardLocked = false;
+  moves = 0;
+  board.replaceChildren();
+  createCreatureCards();
+  updateScore();
+  message.textContent = "Choose a card to find its pair.";
+}
+
+function updateScore() {
+  movesDisplay.textContent = moves;
+  pairsDisplay.textContent = `${matchedCards.length / 2} / ${creatures.length}`;
+}
 
 function shuffleDeck(cards) {
   for (let index = cards.length - 1; index > 0; index--) {
@@ -60,6 +84,8 @@ function handleBoardClick(event) {
     return;
   }
 
+  moves++;
+  updateScore();
   checkPair();
 }
 
@@ -86,20 +112,28 @@ function checkPair() {
 
     message.textContent = `You matched the ${deck[firstIndex].name.toLowerCase()} pair!`;
     selectedCards = [];
+    updateScore();
+
+    if (matchedCards.length === deck.length) {
+      message.textContent = `You found all ${creatures.length} pairs in ${moves} moves!`;
+    }
+
     return;
   }
 
   isBoardLocked = true;
   message.textContent = "Not a match. Try to remember these creatures!";
 
-  setTimeout(() => {
+  mismatchTimer = setTimeout(() => {
     setCardFace(firstIndex, false);
     setCardFace(secondIndex, false);
     selectedCards = [];
     isBoardLocked = false;
+    mismatchTimer = null;
     message.textContent = "Choose a card to try again.";
   }, 1000);
 }
 
 board.addEventListener("click", handleBoardClick);
-createCreatureCards();
+restartButton.addEventListener("click", startGame);
+startGame();
