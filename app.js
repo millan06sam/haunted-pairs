@@ -12,6 +12,9 @@ const creatures = [
 const board = document.querySelector("#board");
 const message = document.querySelector("#message");
 const deck = shuffleDeck([...creatures, ...creatures]);
+let selectedCards = [];
+const matchedCards = [];
+let isBoardLocked = false;
 
 function shuffleDeck(cards) {
   for (let index = cards.length - 1; index > 0; index--) {
@@ -39,15 +42,63 @@ function createCreatureCards() {
 function handleBoardClick(event) {
   const card = event.target.closest(".card");
 
-  if (card === null) {
+  if (card === null || isBoardLocked) {
     return;
   }
 
   const index = Number(card.dataset.index);
+
+  if (selectedCards.includes(index) || matchedCards.includes(index)) {
+    return;
+  }
+
+  setCardFace(index, true);
+  selectedCards.push(index);
+
+  if (selectedCards.length === 1) {
+    message.textContent = "Choose another card to find its pair.";
+    return;
+  }
+
+  checkPair();
+}
+
+function setCardFace(index, isFaceUp) {
+  const card = board.children[index];
   const creature = deck[index];
-  card.textContent = creature.symbol;
-  card.setAttribute("aria-label", `Card ${index + 1}, ${creature.name}`);
-  message.textContent = `You revealed the ${creature.name.toLowerCase()}!`;
+  card.textContent = isFaceUp ? creature.symbol : "?";
+  const label = isFaceUp ? creature.name : "face down";
+  card.setAttribute("aria-label", `Card ${index + 1}, ${label}`);
+}
+
+function checkPair() {
+  const firstIndex = selectedCards[0];
+  const secondIndex = selectedCards[1];
+
+  if (deck[firstIndex].name === deck[secondIndex].name) {
+    for (const index of selectedCards) {
+      matchedCards.push(index);
+      const card = board.children[index];
+      card.disabled = true;
+      card.classList.add("matched");
+      card.setAttribute("aria-label", `Card ${index + 1}, ${deck[index].name}, matched`);
+    }
+
+    message.textContent = `You matched the ${deck[firstIndex].name.toLowerCase()} pair!`;
+    selectedCards = [];
+    return;
+  }
+
+  isBoardLocked = true;
+  message.textContent = "Not a match. Try to remember these creatures!";
+
+  setTimeout(() => {
+    setCardFace(firstIndex, false);
+    setCardFace(secondIndex, false);
+    selectedCards = [];
+    isBoardLocked = false;
+    message.textContent = "Choose a card to try again.";
+  }, 1000);
 }
 
 board.addEventListener("click", handleBoardClick);

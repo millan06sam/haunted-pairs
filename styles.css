@@ -47,6 +47,13 @@ footer {
   background: #ddd;
 }
 
+.card.matched {
+  border: 2px solid #555;
+  background: #ddd;
+  color: #222;
+  cursor: default;
+}
+
 .card:focus-visible {
   outline: 3px solid #222;
   outline-offset: 2px;
